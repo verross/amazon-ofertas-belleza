@@ -1,21 +1,15 @@
 import requests
-import re
 
 r = requests.get(
     "https://www.amazon.es/gp/goldbox",
     headers={"User-Agent": "Mozilla/5.0"}
 )
 
-print("STATUS:", r.status_code)
+texto = r.text
 
-# Buscar bloques donde aparece dealID
-deals = re.findall(r'"dealID":"([^"]+)"', r.text)
+pos = texto.find("Amazon Fire TV Stick")
 
-print("DEALS:", len(deals))
-print(deals[:10])
+print("POSICION:", pos)
 
-# Buscar títulos más legibles
-titulos = re.findall(r'"title":"([^"]+)"', r.text)
-
-print("TITULOS:", len(titulos))
-print(titulos[:10])
+if pos != -1:
+    print(texto[pos-500:pos+1500])
