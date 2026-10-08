@@ -6,19 +6,17 @@ r = requests.get(
     headers={"User-Agent": "Mozilla/5.0"}
 )
 
-coincidencias = re.findall(r'/dp/([A-Z0-9]{10})', r.text)
+print("STATUS:", r.status_code)
 
-asin = coincidencias[0]
+# Buscar precios
+precios = re.findall(r'€', r.text)
 
-print("ASIN:", asin)
+print("Simbolos euro encontrados:", len(precios))
 
-url = f"https://www.amazon.es/dp/{asin}"
+# Buscar títulos
+titulos = re.findall(r'"title":"([^"]+)"', r.text)
 
-r2 = requests.get(
-    url,
-    headers={"User-Agent": "Mozilla/5.0"}
-)
+print("Titulos encontrados:", len(titulos))
 
-print("STATUS PRODUCTO:", r2.status_code)
-
-print(r2.text[:1000])
+if titulos:
+    print(titulos[:5])
