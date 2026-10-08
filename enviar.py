@@ -21,7 +21,7 @@ datos = json.loads(productos)
 
 print("PRODUCTOS:", len(datos))
 
-for p in datos[:5\]:
+for p in datos[:5]:
     print("------")
     print("ASIN:", p.get("asin"))
     print("TITULO:", p.get("title"))
