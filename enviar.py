@@ -26,3 +26,4 @@ for p in datos[:5\]:
     print("ASIN:", p.get("asin"))
     print("TITULO:", p.get("title"))
     print("LINK:", p.get("link"))
+
