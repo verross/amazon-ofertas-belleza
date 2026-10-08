@@ -1,4 +1,6 @@
 import requests
+import re
+import json
 
 r = requests.get(
     "https://www.amazon.es/gp/goldbox",
@@ -7,9 +9,12 @@ r = requests.get(
 
 texto = r.text
 
-pos = texto.find("Amazon Fire TV Stick")
+inicio = texto.find('"products":[')
 
-print("POSICION:", pos)
+if inicio == -1:
+    print("No encontrado")
+    exit()
 
-if pos != -1:
-    print(texto[pos-500:pos+1500])
+print("ENCONTRADO")
+
+print(texto[inicio:inicio+5000])
