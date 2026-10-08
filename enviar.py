@@ -1,5 +1,11 @@
 import requests
 
+try:
+    with open("publicados.txt", "r") as f:
+        publicados = f.read().splitlines()
+except:
+    publicados = []
+
 r = requests.get(
     "https://www.amazon.es/gp/goldbox",
     headers={
