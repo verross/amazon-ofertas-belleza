@@ -1,6 +1,5 @@
 import requests
 import re
-import json
 
 r = requests.get(
     "https://www.amazon.es/gp/goldbox",
@@ -9,21 +8,17 @@ r = requests.get(
 
 texto = r.text
 
-m = re.search(r'"products":\[(.*?)\],"totalCount"', texto)
+productos = re.findall(
+    r'"asin":"([^"]+)".*?"title":"([^"]+)".*?"link":"([^"]+)"',
+    texto,
+    re.DOTALL
+)
 
-if not m:
-    print("No encontrado")
-    exit()
+print("PRODUCTOS:", len(productos))
 
-productos = "[" + m.group(1) + "]"
-
-datos = json.loads(productos)
-
-print("PRODUCTOS:", len(datos))
-
-for p in datos[:5]:
-    print("------")
-    print("ASIN:", p.get("asin"))
-    print("TITULO:", p.get("title"))
-    print("LINK:", p.get("link"))
+for asin, titulo, link in productos[:10\]:
+    print("--------")
+    print("ASIN:", asin)
+    print("TITULO:", titulo)
+    print("LINK:", link)
 
