@@ -16,7 +16,7 @@ productos = re.findall(
 
 print("PRODUCTOS:", len(productos))
 
-for asin, titulo, link in productos[:10\]:
+for asin, titulo, link in productos[:10]:
     print("--------")
     print("ASIN:", asin)
     print("TITULO:", titulo)
