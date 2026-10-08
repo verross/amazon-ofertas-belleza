@@ -9,12 +9,20 @@ r = requests.get(
 
 texto = r.text
 
-inicio = texto.find('"products":[')
+m = re.search(r'"products":\[(.*?)\],"totalCount"', texto)
 
-if inicio == -1:
+if not m:
     print("No encontrado")
     exit()
 
-print("ENCONTRADO")
+productos = "[" + m.group(1) + "]"
 
-print(texto[inicio:inicio+5000])
+datos = json.loads(productos)
+
+print("PRODUCTOS:", len(datos))
+
+for p in datos[:5\]:
+    print("------")
+    print("ASIN:", p.get("asin"))
+    print("TITULO:", p.get("title"))
+    print("LINK:", p.get("link"))
