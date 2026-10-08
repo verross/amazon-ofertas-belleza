@@ -1,5 +1,10 @@
 import requests
 import re
+import os
+import json
+
+TOKEN = os.getenv("BOT_TOKEN")
+CHAT_ID = os.getenv("CHAT_ID")
 
 r = requests.get(
     "https://www.amazon.es/gp/goldbox",
@@ -14,11 +19,6 @@ productos = re.findall(
     re.DOTALL
 )
 
-print("PRODUCTOS:", len(productos))
+asin, titulo, link = productos[0]
 
-for asin, titulo, link in productos[:10]:
-    print("--------")
-    print("ASIN:", asin)
-    print("TITULO:", titulo)
-    print("LINK:", link)
-
+url = f"https://www.amazon.es{link}?tag=verross-21"
