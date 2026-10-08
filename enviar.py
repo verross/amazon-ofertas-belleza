@@ -1,10 +1,5 @@
 import requests
-
-try:
-    with open("publicados.txt", "r") as f:
-        publicados = f.read().splitlines()
-except:
-    publicados = []
+import re
 
 r = requests.get(
     "https://www.amazon.es/gp/goldbox",
@@ -14,4 +9,8 @@ r = requests.get(
 )
 
 print("STATUS:", r.status_code)
-print(r.text[:500])
+
+coincidencias = re.findall(r'/dp/([A-Z0-9]{10})', r.text)
+
+print("Productos encontrados:", len(coincidencias))
+print(coincidencias[:20])
