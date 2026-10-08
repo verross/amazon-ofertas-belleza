@@ -1,7 +1,10 @@
 import requests
 import re
+import os
+import json
 
-print("INICIO")
+TOKEN = os.getenv("BOT_TOKEN")
+CHAT_ID = os.getenv("CHAT_ID")
 
 r = requests.get(
     "https://www.amazon.es/gp/goldbox",
@@ -10,11 +13,20 @@ r = requests.get(
     }
 )
 
-print("STATUS:", r.status_code)
-
 coincidencias = re.findall(r'/dp/([A-Z0-9]{10})', r.text)
 
-print("Productos encontrados:", len(coincidencias))
-print(coincidencias[:20])
+asin = coincidencias[0]
 
-print("FIN")
+url = f"https://www.amazon.es/dp/{asin}?tag=verross-21"
+
+boton = {
+    "inline_keyboard": [
+        [
+            {
+                "text": "🛒 Comprar en Amazon",
+                "url": url
+            }
+        ]
+    ]
+}
+
