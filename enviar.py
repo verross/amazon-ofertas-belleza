@@ -8,15 +8,14 @@ r = requests.get(
 
 print("STATUS:", r.status_code)
 
-# Buscar precios
-precios = re.findall(r'€', r.text)
+# Buscar ASINs
+asins = re.findall(r'/dp/([A-Z0-9]{10})', r.text)
 
-print("Simbolos euro encontrados:", len(precios))
+print("ASINS:", len(asins))
+print(asins[:10])
 
-# Buscar títulos
-titulos = re.findall(r'"title":"([^"]+)"', r.text)
+# Buscar URLs de imágenes Amazon
+imagenes = re.findall(r'https://m\.media-amazon\.com/images/I/[^"]+', r.text)
 
-print("Titulos encontrados:", len(titulos))
-
-if titulos:
-    print(titulos[:5])
+print("IMAGENES:", len(imagenes))
+print(imagenes[:5])
