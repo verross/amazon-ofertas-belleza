@@ -13,7 +13,7 @@ try:
 except:
     publicados = []
 
-# Leer Amazon Goldbox
+# Leer Goldbox
 r = requests.get(
     "https://www.amazon.es/gp/goldbox",
     headers={"User-Agent": "Mozilla/5.0"}
@@ -29,7 +29,6 @@ productos = re.findall(
 
 for asin, titulo, link in productos:
 
-    # Saltar productos ya publicados
     if asin in publicados:
         continue
 
@@ -44,11 +43,9 @@ for asin, titulo, link in productos:
         ]]
     }
 
-    mensaje = f"""🎁 OFERTA AMAZON 🎁
+    mensaje = f"🎁 OFERTA AMAZON 🎁\n\n{titulo}"
 
-{titulo}
-"""
-     respuesta = requests.post(
+    respuesta = requests.post(
         f"https://api.telegram.org/bot{TOKEN}/sendMessage",
         data={
             "chat_id": CHAT_ID,
@@ -60,13 +57,10 @@ for asin, titulo, link in productos:
     print("Publicado:", asin)
     print(respuesta.text)
 
-    # Guardar ASIN
     with open("publicados.txt", "a") as f:
         f.write(asin + "\n")
 
     break
-``
 
 
-print("RESPUESTA TELEGRAM:")
-print(r.text)
+
