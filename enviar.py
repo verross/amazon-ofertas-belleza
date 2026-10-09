@@ -9,11 +9,14 @@ CHAT_ID = os.getenv("CHAT_ID")
 # Leer ASIN ya publicados
 try:
     with open("publicados.txt", "r") as f:
-        publicados = f.read().splitlines()
+        publicados = [line.strip() for line in f if line.strip()]
 except:
     publicados = []
 
-# Leer Goldbox
+print("PUBLICADOS:")
+print(publicados)
+
+# Leer Amazon Goldbox
 r = requests.get(
     "https://www.amazon.es/gp/goldbox",
     headers={"User-Agent": "Mozilla/5.0"}
@@ -27,10 +30,17 @@ productos = re.findall(
     re.DOTALL
 )
 
+print("PRODUCTOS ENCONTRADOS:", len(productos))
+
 for asin, titulo, link in productos:
 
+    print("COMPROBANDO:", asin)
+
     if asin in publicados:
+        print("YA PUBLICADO:", asin)
         continue
+
+    print("PUBLICANDO:", asin)
 
     url = f"https://www.amazon.es{link}?tag=verross-21"
 
@@ -43,7 +53,10 @@ for asin, titulo, link in productos:
         ]]
     }
 
-    mensaje = f"🎁 OFERTA AMAZON 🎁\n\n{titulo}"
+    mensaje = f"""🎁 OFERTA AMAZON 🎁
+
+{titulo}
+"""
 
     respuesta = requests.post(
         f"https://api.telegram.org/bot{TOKEN}/sendMessage",
@@ -54,11 +67,12 @@ for asin, titulo, link in productos:
         }
     )
 
-    print("Publicado:", asin)
     print(respuesta.text)
 
     with open("publicados.txt", "a") as f:
         f.write(asin + "\n")
+
+    print("GUARDADO:", asin)
 
     break
 
