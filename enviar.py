@@ -35,7 +35,8 @@ print("PRODUCTOS ENCONTRADOS:", len(productos))
 
 for asin, titulo, link, imagen in productos:
     imagen = imagen.replace("\\/", "/")
-    print("IMAGEN:", imagen)
+    imagen = imagen + "._AC_SL1500_.jpg"
+    print("IMAGEN FINAL:", imagen)
 
     print("COMPROBANDO:", asin)
 
