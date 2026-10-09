@@ -6,7 +6,7 @@ import json
 TOKEN = os.getenv("BOT_TOKEN")
 CHAT_ID = os.getenv("CHAT_ID")
 
-# Leer ASIN ya publicados
+# Leer ASIN publicados
 try:
     with open("publicados.txt", "r") as f:
         publicados = [line.strip() for line in f if line.strip()]
@@ -24,15 +24,16 @@ r = requests.get(
 
 texto = r.text
 
+# Extraer ASIN, título, link e imagen
 productos = re.findall(
-    r'"asin":"([^"]+)".*?"title":"([^"]+)".*?"link":"([^"]+)"',
+    r'"asin":"([^"]+)".*?"title":"([^"]+)".*?"link":"([^"]+)".*?"baseUrl":"([^"]+)"',
     texto,
     re.DOTALL
 )
 
 print("PRODUCTOS ENCONTRADOS:", len(productos))
 
-for asin, titulo, link in productos:
+for asin, titulo, link, imagen in productos:
 
     print("COMPROBANDO:", asin)
 
@@ -53,16 +54,12 @@ for asin, titulo, link in productos:
         ]]
     }
 
-    mensaje = f"""🎁 OFERTA AMAZON 🎁
-
-{titulo}
-"""
-
     respuesta = requests.post(
-        f"https://api.telegram.org/bot{TOKEN}/sendMessage",
+        f"https://api.telegram.org/bot{TOKEN}/sendPhoto",
         data={
             "chat_id": CHAT_ID,
-            "text": mensaje,
+            "photo": imagen,
+            "caption": f"🎁 OFERTA AMAZON 🎁\n\n{titulo}",
             "reply_markup": json.dumps(boton)
         }
     )
@@ -75,6 +72,5 @@ for asin, titulo, link in productos:
     print("GUARDADO:", asin)
 
     break
-
 
 
