@@ -34,6 +34,8 @@ productos = re.findall(
 print("PRODUCTOS ENCONTRADOS:", len(productos))
 
 for asin, titulo, link, imagen in productos:
+    imagen = imagen.replace("\\/", "/")
+    print("IMAGEN:", imagen)
 
     print("COMPROBANDO:", asin)
 
