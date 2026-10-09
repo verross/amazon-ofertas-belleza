@@ -1,4 +1,5 @@
 import requests
+import re
 
 r = requests.get(
     "https://www.amazon.es/gp/goldbox",
@@ -7,7 +8,15 @@ r = requests.get(
 
 texto = r.text
 
-pos = texto.find("B0C6F6KKLD")
-
-print(texto[pos:pos+4000])
+for palabra in [
+    "price",
+    "dealPrice",
+    "discount",
+    "savings",
+    "percentage",
+    "listPrice",
+    "basisPrice",
+    "salePrice"
+\]:
+    print(palabra, "=>", texto.lower().count(palabra.lower()))
 
