@@ -19,3 +19,11 @@ jobs:
           BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
           CHAT_ID: ${{ secrets.CHAT_ID }}
         run: python enviar.py
+
+      - name: Guardar publicados
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git add publicados.txt
+          git commit -m "Actualizar publicados" || exit 0
+          git push
