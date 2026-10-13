@@ -2,7 +2,7 @@ import requests
 import re
 import os
 import json
-from datetime import datetime
+from datetime import datetime, timedelta
 
 TOKEN = os.getenv("BOT_TOKEN")
 CHAT_ID = os.getenv("CHAT_ID")
@@ -98,6 +98,29 @@ TECNO = [
     "fire tv"
 ]
 
+
+def puede_publicar(archivo, minutos):
+    try:
+        with open(archivo, "r") as f:
+            contenido = f.read().strip()
+
+        if contenido:
+            ultima = datetime.fromisoformat(contenido)
+
+            if datetime.now() - ultima < timedelta(minutes=minutos):
+                return False
+
+    except:
+        pass
+
+    return True
+
+
+def guardar_publicacion(archivo):
+    with open(archivo, "w") as f:
+        f.write(datetime.now().isoformat())
+
+
 # Leer publicados
 try:
     with open("publicados.txt", "r") as f:
@@ -105,7 +128,7 @@ try:
 except:
     publicados = []
 
-# Descargar Goldbox
+# Leer Goldbox
 r = requests.get(
     "https://www.amazon.es/gp/goldbox",
     headers={"User-Agent": "Mozilla/5.0"}
@@ -124,8 +147,6 @@ productos = re.findall(
 )
 
 print("PRODUCTOS:", len(productos))
-
-ahora = datetime.utcnow()
 
 for asin, titulo, link, imagen in productos:
 
@@ -150,26 +171,23 @@ for asin, titulo, link, imagen in productos:
 
     else:
         continue
-        
 
-    print("CATEGORIA:", categoria)
-    print("MINUTO:", ahora.minute)    
-    
+    # Control de frecuencia por categoría
     if categoria == "💄 BELLEZA":
-    if not puede_publicar("ultima_belleza.txt", 8):
-        continue
+        if not puede_publicar("ultima_belleza.txt", 8):
+            continue
 
-elif categoria == "🐶 MASCOTAS":
-    if not puede_publicar("ultima_mascotas.txt", 9):
-        continue
+    elif categoria == "🐶 MASCOTAS":
+        if not puede_publicar("ultima_mascotas.txt", 8):
+            continue
 
-elif categoria == "🏠 HOGAR":
-    if not puede_publicar("ultima_hogar.txt", 20):
-        continue
+    elif categoria == "🏠 HOGAR":
+        if not puede_publicar("ultima_hogar.txt", 20):
+            continue
 
-elif categoria == "📱 TECNOLOGÍA":
-    if not puede_publicar("ultima_tecno.txt", 21):
-        continue
+    elif categoria == "📱 TECNOLOGÍA":
+        if not puede_publicar("ultima_tecno.txt", 20):
+            continue
 
     imagen = imagen.replace("\\/", "/")
 
@@ -209,6 +227,18 @@ elif categoria == "📱 TECNOLOGÍA":
 
         with open("publicados.txt", "a") as f:
             f.write(asin + "\n")
+
+        if categoria == "💄 BELLEZA":
+            guardar_publicacion("ultima_belleza.txt")
+
+        elif categoria == "🐶 MASCOTAS":
+            guardar_publicacion("ultima_mascotas.txt")
+
+        elif categoria == "🏠 HOGAR":
+            guardar_publicacion("ultima_hogar.txt")
+
+        elif categoria == "📱 TECNOLOGÍA":
+            guardar_publicacion("ultima_tecno.txt")
 
         print("GUARDADO:", asin)
 
