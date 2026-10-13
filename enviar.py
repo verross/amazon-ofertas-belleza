@@ -17,6 +17,6 @@ for palabra in [
     "listPrice",
     "basisPrice",
     "salePrice"
-\]:
+]:
     print(palabra, "=>", texto.lower().count(palabra.lower()))
 
