@@ -12,7 +12,7 @@ for palabra in [
     "discount",
     "price",
     "percentage"
-\]:
+]:
     pos = texto.find(palabra)
 
     print("\n====================")
