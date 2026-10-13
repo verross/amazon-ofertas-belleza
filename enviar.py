@@ -337,19 +337,19 @@ asin, titulo, link, imagen, categoria = producto_seleccionado
 
 imagen = imagen.replace("\\/", "/")
 
-    if not imagen.endswith(".jpg"):
-        imagen += ".jpg"
+if not imagen.endswith(".jpg"):
+    imagen += ".jpg"
 
-    url = f"https://www.amazon.es{link}?tag=verross-21"
+url = f"https://www.amazon.es{link}?tag=verross-21"
 
-    boton = {
-        "inline_keyboard": [[
-            {
-                "text": "🛒 VER OFERTA",
-                "url": url
-            }
-        ]]
-    }
+boton = {
+     "inline_keyboard": [[
+        {
+            "text": "🛒 VER OFERTA",
+            "url": url
+         }
+    ]]
+}
 
     mensaje = (
         f"🔥 OFERTAZA AMAZON 🔥\n\n"
