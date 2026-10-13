@@ -12,8 +12,8 @@ BELLEZA = [
     "serum",
     "sérum",
     "perfume",
-    "champú",
     "cosmética",
+    "champú",
     "champu",
     "facial",
     "piel",
@@ -22,18 +22,25 @@ BELLEZA = [
     "philips",
     "afeitado"
 ]
+
 MASCOTAS = [
+    "perro",
+    "perros",
     "gato",
     "gatos",
     "mascota",
     "mascotas",
     "pienso",
+    "comida para perros",
     "comida para gatos",
     "rascador",
     "arenero",
     "correa",
     "arnés",
+    "arnes",
+    "juguete para perros",
     "juguete para gatos",
+    "cama para perro",
     "cama para gato",
     "transportín",
     "transportin",
@@ -47,20 +54,21 @@ MASCOTAS = [
     "felix",
     "pedigree"
 ]
+
 HOGAR = [
     "aspirador",
     "robot",
     "cafetera",
     "freidora",
     "escritorio",
+    "mesa",
     "limpieza",
     "hogar",
     "mueble",
-    "vela"
-    "echo",
-    "alexa",
-    "ring",
-    "kindle"
+    "vela",
+    "colchón",
+    "colchon",
+    "almohada"
 ]
 
 TECNO = [
@@ -82,7 +90,12 @@ TECNO = [
     "smartwatch",
     "bluetooth",
     "gaming",
-    "ordenador"
+    "ordenador",
+    "echo",
+    "alexa",
+    "ring",
+    "kindle",
+    "fire tv"
 ]
 
 # Leer publicados
@@ -92,7 +105,7 @@ try:
 except:
     publicados = []
 
-# Leer Goldbox
+# Descargar Goldbox
 r = requests.get(
     "https://www.amazon.es/gp/goldbox",
     headers={"User-Agent": "Mozilla/5.0"}
@@ -126,6 +139,9 @@ for asin, titulo, link, imagen in productos:
     if any(x in titulo_lower for x in BELLEZA):
         categoria = "💄 BELLEZA"
 
+    elif any(x in titulo_lower for x in MASCOTAS):
+        categoria = "🐶 MASCOTAS"
+
     elif any(x in titulo_lower for x in HOGAR):
         categoria = "🏠 HOGAR"
 
@@ -135,13 +151,22 @@ for asin, titulo, link, imagen in productos:
     else:
         continue
 
-    # Frecuencias por categoría
-    if categoria == "🏠 HOGAR":
-        if ahora.minute % 15 != 0:
+    # Frecuencias
+
+    if categoria == "💄 BELLEZA":
+        if ahora.minute % 8 != 0:
+            continue
+
+    elif categoria == "🐶 MASCOTAS":
+        if ahora.minute % 8 != 0:
+            continue
+
+    elif categoria == "🏠 HOGAR":
+        if ahora.minute % 20 != 0:
             continue
 
     elif categoria == "📱 TECNOLOGÍA":
-        if ahora.minute % 30 != 0:
+        if ahora.minute % 20 != 0:
             continue
 
     imagen = imagen.replace("\\/", "/")
