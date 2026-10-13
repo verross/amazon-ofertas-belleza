@@ -1,5 +1,4 @@
 import requests
-import re
 
 r = requests.get(
     "https://www.amazon.es/gp/goldbox",
@@ -8,15 +7,6 @@ r = requests.get(
 
 texto = r.text
 
-patron = r'"priceToPay".*?"price":"([^"]+)".*?"basisPrice".*?"price":"([^"]+)".*?"text":"([^"]+%)"'
+pos = texto.find('"asin":"B0DTQCWJBR"')
 
-ofertas = re.findall(patron, texto, re.DOTALL)
-
-print("OFERTAS:", len(ofertas))
-
-for actual, anterior, descuento in ofertas[:10]:
-    print("------")
-    print("ANTES:", anterior)
-    print("AHORA:", actual)
-    print("DTO:", descuento)
-
+print(texto[pos:pos+6000])
