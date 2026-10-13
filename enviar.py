@@ -57,6 +57,20 @@ BELLEZA = [
     "dear klairs",
     "klairs",
     "purito",
+    "anua",
+"biodance",
+"celimax",
+"skin1004",
+"beauty of joseon",
+"cosrx",
+"round lab",
+"mixsoon",
+"medicube",
+"numbuzin",
+"torriden",
+"haruharu",
+"isntree",
+
 
     # Dermocosmética
     "cerave",
