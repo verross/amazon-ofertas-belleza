@@ -7,6 +7,6 @@ r = requests.get(
 
 texto = r.text
 
-pos = texto.find('"asin":"B0DTQCWJBR"')
+pos = texto.find('"priceToPay"')
 
-print(texto[pos:pos+6000])
+print(texto[pos-2000:pos+3000])
