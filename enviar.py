@@ -284,6 +284,11 @@ productos_mascotas = []
 productos_hogar = []
 productos_tecno = []
 
+productos_belleza = []
+productos_mascotas = []
+productos_hogar = []
+productos_tecno = []
+
 for asin, titulo, link, imagen in productos:
 
     if asin in publicados:
@@ -310,9 +315,6 @@ for asin, titulo, link, imagen in productos:
         productos_hogar.append(
             (asin, titulo, link, imagen, "🏠 HOGAR")
         )
-
-    else:
-        continue
 
     # Control de frecuencia por categoría
     if categoria == "💄 BELLEZA":
