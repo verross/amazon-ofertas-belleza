@@ -14,7 +14,7 @@ ofertas = re.findall(patron, texto, re.DOTALL)
 
 print("OFERTAS:", len(ofertas))
 
-for actual, anterior, descuento in ofertas[:10\]:
+for actual, anterior, descuento in ofertas[:10]:
     print("------")
     print("ANTES:", anterior)
     print("AHORA:", actual)
