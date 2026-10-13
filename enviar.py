@@ -279,24 +279,37 @@ print("PRODUCTOS:", len(productos))
 
 for asin, titulo, link, imagen in productos:
 
+  productos_belleza = []
+productos_mascotas = []
+productos_hogar = []
+productos_tecno = []
+
+for asin, titulo, link, imagen in productos:
+
     if asin in publicados:
         continue
 
     titulo_lower = titulo.lower()
 
-    categoria = None
-
     if any(x in titulo_lower for x in BELLEZA):
-        categoria = "💄 BELLEZA"
+        productos_belleza.append(
+            (asin, titulo, link, imagen, "💄 BELLEZA")
+        )
 
     elif any(x in titulo_lower for x in MASCOTAS):
-        categoria = "🐶 MASCOTAS"
-
-    elif any(x in titulo_lower for x in HOGAR):
-        categoria = "🏠 HOGAR"
+        productos_mascotas.append(
+            (asin, titulo, link, imagen, "🐶 MASCOTAS")
+        )
 
     elif any(x in titulo_lower for x in TECNO):
-        categoria = "📱 TECNOLOGÍA"
+        productos_tecno.append(
+            (asin, titulo, link, imagen, "📱 TECNOLOGÍA")
+        )
+
+    elif any(x in titulo_lower for x in HOGAR):
+        productos_hogar.append(
+            (asin, titulo, link, imagen, "🏠 HOGAR")
+        )
 
     else:
         continue
