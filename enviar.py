@@ -154,28 +154,22 @@ for asin, titulo, link, imagen in productos:
 
     print("CATEGORIA:", categoria)
     print("MINUTO:", ahora.minute)    
+    
     if categoria == "💄 BELLEZA":
-        print("BELLEZA")
-    if ahora.minute % 8 != 0:
-        print("NO TOCA")
+    if not puede_publicar("ultima_belleza.txt", 8):
         continue
-    # Frecuencias
 
-    if categoria == "💄 BELLEZA":
-        if ahora.minute % 8 != 0:
-            continue
+elif categoria == "🐶 MASCOTAS":
+    if not puede_publicar("ultima_mascotas.txt", 9):
+        continue
 
-    elif categoria == "🐶 MASCOTAS":
-        if ahora.minute % 8 != 0:
-            continue
+elif categoria == "🏠 HOGAR":
+    if not puede_publicar("ultima_hogar.txt", 20):
+        continue
 
-    elif categoria == "🏠 HOGAR":
-        if ahora.minute % 20 != 0:
-            continue
-
-    elif categoria == "📱 TECNOLOGÍA":
-        if ahora.minute % 20 != 0:
-            continue
+elif categoria == "📱 TECNOLOGÍA":
+    if not puede_publicar("ultima_tecno.txt", 21):
+        continue
 
     imagen = imagen.replace("\\/", "/")
 
