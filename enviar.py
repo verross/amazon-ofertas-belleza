@@ -351,41 +351,41 @@ boton = {
     ]]
 }
 
-    mensaje = (
+mensaje = (
         f"🔥 OFERTAZA AMAZON 🔥\n\n"
         f"{categoria}\n\n"
         f"📦 {titulo}"
     )
 
-    respuesta = requests.post(
-        f"https://api.telegram.org/bot{TOKEN}/sendPhoto",
-        data={
-            "chat_id": CHAT_ID,
-            "photo": imagen,
-            "caption": mensaje,
-            "reply_markup": json.dumps(boton)
-        }
-    )
+respuesta = requests.post(
+    f"https://api.telegram.org/bot{TOKEN}/sendPhoto",
+    data={
+        "chat_id": CHAT_ID,
+        "photo": imagen,
+        "caption": mensaje,
+        "reply_markup": json.dumps(boton)
+    }
+)
 
-    print(respuesta.text)
+print(respuesta.text)
 
-    if '"ok":true' in respuesta.text:
+if '"ok":true' in respuesta.text:
 
-        with open("publicados.txt", "a") as f:
-            f.write(asin + "\n")
+    with open("publicados.txt", "a") as f:
+        f.write(asin + "\n")
 
-        if categoria == "💄 BELLEZA":
-            guardar_publicacion("ultima_belleza.txt")
+    if categoria == "💄 BELLEZA":
+       guardar_publicacion("ultima_belleza.txt")
 
-        elif categoria == "🐶 MASCOTAS":
-            guardar_publicacion("ultima_mascotas.txt")
+   elif categoria == "🐶 MASCOTAS":
+        guardar_publicacion("ultima_mascotas.txt")
 
-        elif categoria == "🏠 HOGAR":
-            guardar_publicacion("ultima_hogar.txt")
+   elif categoria == "🏠 HOGAR":
+        guardar_publicacion("ultima_hogar.txt")
 
-        elif categoria == "📱 TECNOLOGÍA":
-            guardar_publicacion("ultima_tecno.txt")
+   elif categoria == "📱 TECNOLOGÍA":
+        guardar_publicacion("ultima_tecno.txt")
 
-        print("GUARDADO:", asin)
+   print("GUARDADO:", asin)
 
-    break
+break
