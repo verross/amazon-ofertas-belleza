@@ -315,8 +315,27 @@ for asin, titulo, link, imagen in productos:
         productos_hogar.append(
             (asin, titulo, link, imagen, "🏠 HOGAR")
         )
+producto_seleccionado = None
 
-      imagen = imagen.replace("\\/", "/")
+if productos_belleza and puede_publicar("ultima_belleza.txt", 5):
+    producto_seleccionado = productos_belleza[0]
+
+elif productos_mascotas and puede_publicar("ultima_mascotas.txt", 8):
+    producto_seleccionado = productos_mascotas[0]
+
+elif productos_hogar and puede_publicar("ultima_hogar.txt", 45):
+    producto_seleccionado = productos_hogar[0]
+
+elif productos_tecno and puede_publicar("ultima_tecno.txt", 60):
+    producto_seleccionado = productos_tecno[0]
+
+if not producto_seleccionado:
+    print("NO HAY PRODUCTOS PARA PUBLICAR")
+    exit()
+
+asin, titulo, link, imagen, categoria = producto_seleccionado
+
+imagen = imagen.replace("\\/", "/")
 
     if not imagen.endswith(".jpg"):
         imagen += ".jpg"
