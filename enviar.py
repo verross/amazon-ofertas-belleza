@@ -7,6 +7,8 @@ r = requests.get(
 
 texto = r.text
 
-inicio = texto.find('"productSearchResponse":{"nextIndex"')
+inicio = texto.find('"productSearchResponse"')
 
-print(texto[inicio:inicio+2000])
+print("INICIO:", inicio)
+
+print(texto[inicio:inicio+30000])
