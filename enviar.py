@@ -7,6 +7,6 @@ r = requests.get(
 
 texto = r.text
 
-pos = texto.find('"priceToPay"')
+inicio = texto.find('"productSearchResponse":{"nextIndex"')
 
-print(texto[pos-10000:pos+5000])
+print(texto[inicio:inicio+2000])
