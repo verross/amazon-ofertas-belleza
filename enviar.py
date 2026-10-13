@@ -22,7 +22,31 @@ BELLEZA = [
     "philips",
     "afeitado"
 ]
-
+MASCOTAS = [
+    "gato",
+    "gatos",
+    "mascota",
+    "mascotas",
+    "pienso",
+    "comida para gatos",
+    "rascador",
+    "arenero",
+    "correa",
+    "arnés",
+    "juguete para gatos",
+    "cama para gato",
+    "transportín",
+    "transportin",
+    "comedero",
+    "bebedero",
+    "purina",
+    "royal canin",
+    "advance",
+    "ultima",
+    "whiskas",
+    "felix",
+    "pedigree"
+]
 HOGAR = [
     "aspirador",
     "robot",
