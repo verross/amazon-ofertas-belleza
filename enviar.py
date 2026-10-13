@@ -289,7 +289,7 @@ for asin, titulo, link, imagen in productos:
 
     # Control de frecuencia por categoría
     if categoria == "💄 BELLEZA":
-        if not puede_publicar("ultima_belleza.txt", 8):
+        if not puede_publicar("ultima_belleza.txt", 5):
             continue
 
     elif categoria == "🐶 MASCOTAS":
@@ -297,11 +297,11 @@ for asin, titulo, link, imagen in productos:
             continue
 
     elif categoria == "🏠 HOGAR":
-        if not puede_publicar("ultima_hogar.txt", 20):
+        if not puede_publicar("ultima_hogar.txt", 45):
             continue
 
     elif categoria == "📱 TECNOLOGÍA":
-        if not puede_publicar("ultima_tecno.txt", 20):
+        if not puede_publicar("ultima_tecno.txt", 60):
             continue
 
     imagen = imagen.replace("\\/", "/")
