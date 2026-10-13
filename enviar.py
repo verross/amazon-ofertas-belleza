@@ -150,7 +150,15 @@ for asin, titulo, link, imagen in productos:
 
     else:
         continue
+        
 
+    print("CATEGORIA:", categoria)
+    print("MINUTO:", ahora.minute)    
+    if categoria == "💄 BELLEZA":
+    print("BELLEZA")
+    if ahora.minute % 8 != 0:
+        print("NO TOCA")
+        continue
     # Frecuencias
 
     if categoria == "💄 BELLEZA":
