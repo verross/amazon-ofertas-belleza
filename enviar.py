@@ -2,18 +2,73 @@ import requests
 import re
 import os
 import json
+from datetime import datetime
 
 TOKEN = os.getenv("BOT_TOKEN")
 CHAT_ID = os.getenv("CHAT_ID")
 
-# ASIN ya publicados
+BELLEZA = [
+    "crema",
+    "serum",
+    "sérum",
+    "perfume",
+    "champú",
+    "cosmética",
+    "champu",
+    "facial",
+    "piel",
+    "maquillaje",
+    "oneblade",
+    "philips",
+    "afeitado"
+]
+
+HOGAR = [
+    "aspirador",
+    "robot",
+    "cafetera",
+    "freidora",
+    "escritorio",
+    "limpieza",
+    "hogar",
+    "mueble",
+    "vela"
+    "echo",
+    "alexa",
+    "ring",
+    "kindle"
+]
+
+TECNO = [
+    "iphone",
+    "samsung",
+    "xiaomi",
+    "redmi",
+    "poco",
+    "realme",
+    "motorola",
+    "oneplus",
+    "pixel",
+    "portátil",
+    "portatil",
+    "laptop",
+    "tablet",
+    "ipad",
+    "auriculares",
+    "smartwatch",
+    "bluetooth",
+    "gaming",
+    "ordenador"
+]
+
+# Leer publicados
 try:
     with open("publicados.txt", "r") as f:
-        publicados = [x.strip() for x in f if x.strip()]
+        publicados = [line.strip() for line in f if line.strip()]
 except:
     publicados = []
 
-# Descargar Goldbox
+# Leer Goldbox
 r = requests.get(
     "https://www.amazon.es/gp/goldbox",
     headers={"User-Agent": "Mozilla/5.0"}
@@ -21,28 +76,49 @@ r = requests.get(
 
 texto = r.text
 
-# Productos que tienen precio dentro del mismo bloque
-patron = re.compile(
-    r'"asin":"([^"]+)".*?'
-    r'"title":"([^"]+)".*?'
-    r'"link":"([^"]+)".*?'
-    r'"baseUrl":"([^"]+)".*?'
-    r'"price":\{.*?'
-    r'"priceToPay":\{.*?"price":"([^"]+)".*?\}.*?'
-    r'"basisPrice":\{.*?"price":"([^"]+)".*?\}.*?'
-    r'\}.*?'
-    r'"dealBadge".*?"text":"([0-9]+%)"',
+# Extraer productos
+productos = re.findall(
+    r'"asin":"([^"]+)"'
+    r'.*?"title":"([^"]+)"'
+    r'.*?"link":"([^"]+)"'
+    r'.*?"baseUrl":"([^"]+)"',
+    texto,
     re.DOTALL
 )
 
-productos = patron.findall(texto)
+print("PRODUCTOS:", len(productos))
 
-print("PRODUCTOS CON PRECIO:", len(productos))
+ahora = datetime.utcnow()
 
-for asin, titulo, link, imagen, actual, anterior, descuento in productos:
+for asin, titulo, link, imagen in productos:
 
     if asin in publicados:
         continue
+
+    titulo_lower = titulo.lower()
+
+    categoria = None
+
+    if any(x in titulo_lower for x in BELLEZA):
+        categoria = "💄 BELLEZA"
+
+    elif any(x in titulo_lower for x in HOGAR):
+        categoria = "🏠 HOGAR"
+
+    elif any(x in titulo_lower for x in TECNO):
+        categoria = "📱 TECNOLOGÍA"
+
+    else:
+        continue
+
+    # Frecuencias por categoría
+    if categoria == "🏠 HOGAR":
+        if ahora.minute % 15 != 0:
+            continue
+
+    elif categoria == "📱 TECNOLOGÍA":
+        if ahora.minute % 30 != 0:
+            continue
 
     imagen = imagen.replace("\\/", "/")
 
@@ -62,10 +138,8 @@ for asin, titulo, link, imagen, actual, anterior, descuento in productos:
 
     mensaje = (
         f"🔥 OFERTAZA AMAZON 🔥\n\n"
-        f"📦 {titulo}\n\n"
-        f"💰 Antes: {anterior} €\n"
-        f"🔥 Ahora: {actual} €\n"
-        f"🏷️ Descuento: {descuento}"
+        f"{categoria}\n\n"
+        f"📦 {titulo}"
     )
 
     respuesta = requests.post(
