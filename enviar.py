@@ -177,12 +177,12 @@ for asin, titulo, link, imagen in productos:
     titulo_lower = titulo.lower()
 
     for palabra in BELLEZA:
-    if palabra in titulo_lower:
-        print("COINCIDE CON:", palabra)
-        productos_belleza.append(
-            (asin, titulo, link, imagen, "💄 BELLEZA")
-        )
-        break
+        if palabra in titulo_lower:
+            print("COINCIDE CON:", palabra)
+            productos_belleza.append(
+                (asin, titulo, link, imagen, "💄 BELLEZA")
+            )
+            break
 
 if not productos_belleza:
     print("NO HAY PRODUCTOS DE BELLEZA")
