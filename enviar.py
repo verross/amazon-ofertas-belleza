@@ -149,7 +149,10 @@ except:
 r = requests.get(
 #    "https://www.amazon.es/gp/goldbox",
     "https://www.amazon.es/deals?ref_=nav_cs_gb&discounts-widget=%2522%257B%255C%2522state%255C%2522%253A%257B%255C%2522refinementFilters%255C%2522%253A%257B%255C%2522departments%255C%2522%253A%255B%255C%25226198055031%255C%2522%255D%257D%257D%252C%255C%2522version%255C%2522%253A1%257D%2522&promotionsSearchLastSeenAsin=B0GTJ653VG&promotionsSearchStartIndex=0&promotionsSearchPageSize=90",
-    headers={"User-Agent": "Mozilla/5.0"}
+    headers={
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/138.0 Safari/537.36",
+        "Accept-Language": "es-ES,es;q=0.9"
+    }
 )
 
 # Leer deals
