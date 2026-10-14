@@ -388,4 +388,4 @@ if '"ok":true' in respuesta.text:
 
     print("GUARDADO:", asin)
 
-break
+exit()
