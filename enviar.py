@@ -156,10 +156,10 @@ r = requests.get(
     "https://www.amazon.es/deals",
     headers={"User-Agent": "Mozilla/5.0"}
 )
-
+texto = r.text
 print("TAMAÑO HTML:", len(texto))
 print(texto[:1000])
-texto = r.text
+
 
 # Extraer productos
 productos = re.findall(
