@@ -178,6 +178,9 @@ productos = re.findall(
 
 print("PRODUCTOS:", len(productos))
 
+
+print("ASINS ENCONTRADOS:", len(asins))
+print("ASINS ÚNICOS:", len(set(asins)))
 productos_belleza = []
 
 for asin, titulo, link, imagen in productos:
