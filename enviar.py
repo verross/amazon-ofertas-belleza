@@ -157,8 +157,13 @@ r = requests.get(
     headers={"User-Agent": "Mozilla/5.0"}
 )
 texto = r.text
+asins = re.findall(r'"asin":"([^"]+)"', texto)
+
+print("ASINS ENCONTRADOS:", len(asins))
+print("ASINS ÚNICOS:", len(set(asins)))
+
 print("TAMAÑO HTML:", len(texto))
-print(texto[:1000])
+
 
 
 # Extraer productos
