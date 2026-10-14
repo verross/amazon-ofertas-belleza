@@ -375,17 +375,17 @@ if '"ok":true' in respuesta.text:
         f.write(asin + "\n")
 
     if categoria == "💄 BELLEZA":
-       guardar_publicacion("ultima_belleza.txt")
+        guardar_publicacion("ultima_belleza.txt")
 
-   elif categoria == "🐶 MASCOTAS":
+    elif categoria == "🐶 MASCOTAS":
         guardar_publicacion("ultima_mascotas.txt")
 
-   elif categoria == "🏠 HOGAR":
+    elif categoria == "🏠 HOGAR":
         guardar_publicacion("ultima_hogar.txt")
 
-   elif categoria == "📱 TECNOLOGÍA":
+    elif categoria == "📱 TECNOLOGÍA":
         guardar_publicacion("ultima_tecno.txt")
 
-   print("GUARDADO:", asin)
+    print("GUARDADO:", asin)
 
 break
