@@ -167,7 +167,7 @@ print("PRODUCTOS:", len(productos))
 
 for asin, titulo, link, imagen in productos:
 
-productos_belleza = []
+    productos_belleza = []
 
 for asin, titulo, link, imagen in productos:
 
