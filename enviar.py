@@ -115,118 +115,6 @@ BELLEZA = [
 
 ]
 
-MASCOTAS = [
-    "gato",
-    "gatos",
-    "mascota",
-    "mascotas",
-    "pienso",
-    "comida para gatos",
-    "rascador",
-    "arenero",
-    "correa",
-    "arnés",
-    "arnes",
-    "juguete para perros",
-    "juguete para gatos",
-    "cama para perro",
-    "cama para gato",
-    "transportín",
-    "transportin",
-    "comedero",
-    "bebedero",
-    # Pienso y alimentación gatos
-"royal canin",
-"purina",
-"purina one",
-"purina pro plan",
-"ultima",
-"whiskas",
-"felix",
-"advance",
-"hills",
-"hill's",
-"true instinct",
-"applaws",
-"nature's variety",
-"acana",
-"orijen",
-"ownat",
-"josera",
-"carnilove",
-"edgard cooper",
-"schesir",
-"animonda",
-"cat chow",
-"gourmet",
-"gourmet gold",
-"sheba",
-"lily's kitchen",
-"concept for life",
-"lifelong",
-"arquivet",
-"brit care",
-"fokker",
-"taste of the wild",
-
-# Palabras frecuentes
-"arena para gatos",
-"arena aglomerante",
-"rascador",
-"árbol para gatos",
-"arbol para gatos",
-"fuente para gatos",
-"comedero automático",
-"comedero automatico",
-"bebedero para gatos",
-"snack para gatos",
-"premio para gatos",
-"malta para gatos",
-"hierba gatera",
-"catnip"
-]
-
-HOGAR = [
-    "aspirador",
-    "robot",
-    "cafetera",
-    "freidora",
-    "escritorio",
-    "mesa",
-    "limpieza",
-    "hogar",
-    "mueble",
-    "vela",
-    "almohada"
-]
-
-TECNO = [
-    "iphone",
-    "samsung",
-    "xiaomi",
-    "redmi",
-    "poco",
-    "realme",
-    "motorola",
-    "oneplus",
-    "pixel",
-    "portátil",
-    "portatil",
-    "laptop",
-    "tablet",
-    "ipad",
-    "auriculares",
-    "smartwatch",
-    "bluetooth",
-    "gaming",
-    "ordenador",
-    "echo",
-    "alexa",
-    "ring",
-    "kindle",
-    "fire tv"
-]
-
 
 def puede_publicar(archivo, minutos):
     try:
@@ -279,15 +167,7 @@ print("PRODUCTOS:", len(productos))
 
 for asin, titulo, link, imagen in productos:
 
-  productos_belleza = []
-productos_mascotas = []
-productos_hogar = []
-productos_tecno = []
-
 productos_belleza = []
-productos_mascotas = []
-productos_hogar = []
-productos_tecno = []
 
 for asin, titulo, link, imagen in productos:
 
@@ -301,36 +181,17 @@ for asin, titulo, link, imagen in productos:
             (asin, titulo, link, imagen, "💄 BELLEZA")
         )
 
-    elif any(x in titulo_lower for x in MASCOTAS):
-        productos_mascotas.append(
-            (asin, titulo, link, imagen, "🐶 MASCOTAS")
-        )
+if not productos_belleza:
+    print("NO HAY PRODUCTOS DE BELLEZA")
+    exit()
 
-    elif any(x in titulo_lower for x in TECNO):
-        productos_tecno.append(
-            (asin, titulo, link, imagen, "📱 TECNOLOGÍA")
-        )
-
-    elif any(x in titulo_lower for x in HOGAR):
-        productos_hogar.append(
-            (asin, titulo, link, imagen, "🏠 HOGAR")
-        )
 producto_seleccionado = None
 
 if productos_belleza and puede_publicar("ultima_belleza.txt", 5):
     producto_seleccionado = productos_belleza[0]
 
-elif productos_mascotas and puede_publicar("ultima_mascotas.txt", 8):
-    producto_seleccionado = productos_mascotas[0]
-
-elif productos_hogar and puede_publicar("ultima_hogar.txt", 45):
-    producto_seleccionado = productos_hogar[0]
-
-elif productos_tecno and puede_publicar("ultima_tecno.txt", 60):
-    producto_seleccionado = productos_tecno[0]
-
 if not producto_seleccionado:
-    print("NO HAY PRODUCTOS PARA PUBLICAR")
+    print("NO HAY PRODUCTOS DE BELLEZA")
     exit()
 
 asin, titulo, link, imagen, categoria = producto_seleccionado
@@ -374,18 +235,7 @@ if '"ok":true' in respuesta.text:
     with open("publicados.txt", "a") as f:
         f.write(asin + "\n")
 
-    if categoria == "💄 BELLEZA":
-        guardar_publicacion("ultima_belleza.txt")
-
-    elif categoria == "🐶 MASCOTAS":
-        guardar_publicacion("ultima_mascotas.txt")
-
-    elif categoria == "🏠 HOGAR":
-        guardar_publicacion("ultima_hogar.txt")
-
-    elif categoria == "📱 TECNOLOGÍA":
-        guardar_publicacion("ultima_tecno.txt")
+    guardar_publicacion("ultima_belleza.txt")
 
     print("GUARDADO:", asin)
-
 exit()
