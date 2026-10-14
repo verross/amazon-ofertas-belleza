@@ -19,12 +19,11 @@ BELLEZA = [
     "facial",
     "piel",
     "maquillaje",
-    "afeitado",
-    "oneblade",
     "philips",
+    "GHD",
 
     # Coreana
-    "anua",
+    "anua ",
     "biodance",
     "celimax",
     "skin1004",
@@ -81,7 +80,7 @@ BELLEZA = [
     "la roche",
     "la roche-posay",
     "neutrogena",
-    "roc",
+    "roc ",
     "sesderma",
     "avene",
     "avène",
