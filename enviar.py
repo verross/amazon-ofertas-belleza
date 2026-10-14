@@ -146,16 +146,16 @@ except:
     publicados = []
 
 # Leer Goldbox
-#r = requests.get(
-#    "https://www.amazon.es/gp/goldbox",
-#    headers={"User-Agent": "Mozilla/5.0"}
-#)
-
-# Leer deals
 r = requests.get(
-    "https://www.amazon.es/deals",
+    "https://www.amazon.es/gp/goldbox",
     headers={"User-Agent": "Mozilla/5.0"}
 )
+
+# Leer deals
+#r = requests.get(
+#    "https://www.amazon.es/deals",
+#    headers={"User-Agent": "Mozilla/5.0"}
+#)
 texto = r.text
 asins = re.findall(r'"asin":"([^"]+)"', texto)
 
